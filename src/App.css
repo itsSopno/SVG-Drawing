@@ -16,8 +16,24 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
@@ -66,18 +82,14 @@ body {
 }
 
 /* ── Outer section containers ───────────────────────────────── */
+.section-auto { height: 100svh; position: relative; }
 
-/* Section 1: auto-draw, normal height */
-.section-auto {
-  height: 100svh;
-  position: relative;
-}
+/* Desktop: tall for scroll scrub */
+.section-scroll { height: 280svh; position: relative; }
 
-/* Sections 2-4: tall for scroll space, sticky frame inside.
-   380svh = ~280svh of scroll distance = slower, more dramatic draw */
-.section-scroll {
-  height: 380svh;
-  position: relative;
+/* Mobile: normal height, onEnter trigger */
+@media (pointer: coarse), (max-width: 767px) {
+  .section-scroll { height: 100svh; }
 }
 
 /* ── Per-section background colours ────────────────────────── */
