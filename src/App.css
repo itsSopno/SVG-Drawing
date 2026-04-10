@@ -1,0 +1,288 @@
+/* ── Google Fonts ───────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@200;300;400&display=swap');
+
+/* ── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Outfit', sans-serif;
+  --text: #f2ede8;
+  --text-dim: rgba(242, 237, 232, 0.45);
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #080a08;
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── App wrapper ────────────────────────────────────────────── */
+.app {
+  width: 100%;
+}
+
+/* ── Sections ───────────────────────────────────────────────── */
+.sorry-section {
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 10svh;
+  overflow: hidden;
+}
+
+/* Unique per-section background */
+#section-0 {
+  background: radial-gradient(ellipse 100% 120% at 50% 30%, #0d1a0c 0%, #060806 100%);
+}
+#section-1 {
+  background: radial-gradient(ellipse 100% 120% at 50% 30%, #120a1e 0%, #070610 100%);
+}
+#section-2 {
+  background: radial-gradient(ellipse 100% 120% at 50% 40%, #091428 0%, #05090f 100%);
+}
+#section-3 {
+  background: radial-gradient(ellipse 100% 120% at 50% 30%, #1a0c0a 0%, #0a0606 100%);
+}
+
+/* ── SVG background layer ───────────────────────────────────── */
+.svg-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  padding: 24px;
+}
+
+.svg-layer svg {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100svh;
+  object-fit: contain;
+  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.04));
+}
+
+/* ── Text scrim gradient ────────────────────────────────────── */
+.text-scrim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 40%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Section content ────────────────────────────────────────── */
+.section-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+  padding: 0 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Typography ─────────────────────────────────────────────── */
+
+/* Eyebrow label */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--accent, rgba(255, 255, 255, 0.35));
+  margin-bottom: 8px;
+}
+
+/* Large serif lead */
+.lead {
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 7vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.01em;
+}
+
+.lead.italic {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Small caption */
+.caption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.12em;
+  margin-top: 6px;
+}
+
+/* Bold statement */
+.statement {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 9vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: -0.01em;
+}
+
+/* Body italic text */
+.body-text {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 3.8vw, 1.35rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+}
+
+.italic-dim {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: clamp(0.9rem, 3.2vw, 1.15rem);
+}
+
+/* ── SORRY section — climax ─────────────────────────────────── */
+#section-2 .section-content {
+  justify-content: center;
+  padding-bottom: 0;
+  gap: 14px;
+}
+
+.apology-pre {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1;
+}
+
+.apology {
+  font-family: var(--serif);
+  font-size: clamp(4.5rem, 20vw, 8rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  background: linear-gradient(160deg, #ffffff 0%, #88b4e0 50%, #5a8fc4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+.apology-post {
+  font-family: var(--serif);
+  font-size: clamp(0.82rem, 3vw, 1.05rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.06em;
+}
+
+.divider {
+  width: 40px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 4px auto;
+}
+
+.apology-note {
+  font-family: var(--serif);
+  font-size: clamp(0.88rem, 3.2vw, 1.1rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Heart ──────────────────────────────────────────────────── */
+.heart {
+  font-size: 1.8rem;
+  color: rgba(215, 160, 150, 0.65);
+  margin-top: 10px;
+  display: inline-block;
+  animation: heartbeat 2.2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%       { transform: scale(1.18); }
+  30%       { transform: scale(1); }
+  45%       { transform: scale(1.1); }
+  60%       { transform: scale(1); }
+}
+
+/* ── Progress dots ──────────────────────────────────────────── */
+.progress-dots {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 200;
+}
+
+.dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.dot.active {
+  background: rgba(255, 255, 255, 0.8);
+  transform: scale(1.6);
+}
+
+/* ── Floating entrance animation (section 3 special case) ─── */
+#section-2 {
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+/* ── Responsive fine-tuning ─────────────────────────────────── */
+@media (max-height: 650px) {
+  .sorry-section {
+    min-height: 120svh;
+  }
+  .apology {
+    font-size: clamp(3.5rem, 16vw, 6rem);
+  }
+}
+
+@media (min-width: 480px) {
+  .section-content {
+    max-width: 420px;
+  }
+}
