@@ -140,55 +140,29 @@ function SorrySection({ id, svgData, stroke, fill, accent, autoPlay = false, chi
       return () => tl.kill()
     }
 
-    /* ── Sections 2-4 ── */
-    const mobile = IS_MOBILE()
+    /* ── Sections 2-4: CSS sticky + scroll scrub (Unified) ── */
+    const tl = buildDrawTl(outline, fillPath)
 
-    if (mobile) {
-      /* ─ Mobile: section enters view → play animation ─ */
-      const total = outline.getTotalLength()
-      gsap.set(outline, { strokeDasharray: total, strokeDashoffset: total, opacity: 1 })
-      gsap.set(fillPath, { opacity: 0 })
+    const svgST = ScrollTrigger.create({
+      trigger: outer,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 2.5,
+      animation: tl,
+      invalidateOnRefresh: true,
+    })
 
-      const st = ScrollTrigger.create({
-        trigger: outer,
-        start: 'top 65%',
-        once: true,
-        onEnter() {
-          // SVG draw
-          gsap.timeline()
-            .to(outline, { strokeDashoffset: 0, duration: 5, ease: 'power1.inOut' })
-            .to(outline, { opacity: 0, duration: 0.9, ease: 'power2.in' }, '-=0.9')
-            .to(fillPath, { opacity: 1, duration: 1.2, ease: 'power2.out' }, '<')
-          // Text reveal
-          if (reveals.length) playTextReveal(reveals, 0.4)
-        },
-      })
-      return () => st.kill()
-    } else {
-      /* ─ Desktop: CSS sticky + scroll scrub ─ */
-      const tl = buildDrawTl(outline, fillPath)
+    // Text: fires once when the section becomes visible
+    const textST = ScrollTrigger.create({
+      trigger: outer,
+      start: 'top 20%',
+      once: true,
+      onEnter() {
+        if (reveals.length) playTextReveal(reveals, 0.2)
+      },
+    })
 
-      const svgST = ScrollTrigger.create({
-        trigger: outer,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1.5,
-        animation: tl,
-        invalidateOnRefresh: true,
-      })
-
-      // Text: fires once when the section becomes visible
-      const textST = ScrollTrigger.create({
-        trigger: outer,
-        start: 'top 12%',
-        once: true,
-        onEnter() {
-          if (reveals.length) playTextReveal(reveals, 0.2)
-        },
-      })
-
-      return () => { svgST.kill(); textST.kill() }
-    }
+    return () => { svgST.kill(); textST.kill() }
   }, [autoPlay])
 
   const isScroll = !autoPlay
@@ -246,6 +220,7 @@ const SVG_URLS = ['/plant.svg', '/butterfly.svg', '/blue.svg', '/loader.svg']
 export default function App() {
   const [svgs, setSvgs] = useState(null)
   const [active, setActive] = useState(0)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   // Initialize Lenis for smooth scrolling
   useEffect(() => {
@@ -335,7 +310,32 @@ export default function App() {
         <p data-reveal className="body-text">You are worth every effort.</p>
         <p data-reveal className="body-text">Every apology. Every promise kept.</p>
         <span data-reveal className="heart">♡</span>
+        <button data-reveal className="btn-letter" onClick={() => setIsModalOpen(true)}>
+          Read Letter
+        </button>
       </SorrySection>
+
+      {/* Sorry Letter Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} data-lenis-prevent="true">
+            <button className="modal-close" onClick={() => setIsModalOpen(false)} aria-label="Close modal">×</button>
+            <div className="modal-body">
+              <h3 className="modal-title">My Dearest,</h3>
+              <p>
+                I am writing this because words sometimes fail me when I'm looking into your eyes. I am so incredibly sorry for the pain I've caused you.
+              </p>
+              <p>
+                You have been nothing but a light in my life, and I took that for granted. I know an apology doesn't instantly heal the wounds, but I want you to know that from the bottom of my heart, I deeply regret my actions.
+              </p>
+              <p>
+                I promise to do better, to be better, and to cherish you the way you truly deserve. Please forgive me.
+              </p>
+              <p className="signature">Yours Goru</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
